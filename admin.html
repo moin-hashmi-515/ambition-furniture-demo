@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ambition Furniture CMS — Admin (Demo)</title>
+<style>body{font-family:system-ui,Arial,sans-serif;margin:0;color:#222}header{background:#111;color:#fff;padding:16px}.wrap{max-width:900px;margin:0 auto;padding:16px}.card{border:1px solid #ddd;border-radius:12px;padding:16px;margin:12px 0}button{background:#c8102e;color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer}input,select{width:100%;padding:10px;margin:6px 0;border:1px solid #bbb;border-radius:8px;box-sizing:border-box}.note{background:#fff3cd;padding:12px;border-radius:10px}</style></head>
+<body><header><div class="wrap"><b style="color:#ff5a5a">♛</b> AMBITION FURNITURE — Catalogue CMS <span style="color:#ccc">(Demo)</span></div></header>
+<div class="wrap"><div class="note"><b>Demo CMS only:</b> data lives in this browser (localStorage, keys am_*), on the shared github.io origin. No real server, login, payment or notification. Do NOT enter real customer data. Production needs a backend/WordPress build.</div>
+<div class="card"><h2>Catalogue</h2><div id="cat"></div><p><label>Piece name <input id="pn"></label><label>Category <select id="pc"><option>Beds</option><option>Sofas</option><option>Dining</option><option>Wardrobes</option><option>Bridal Sets</option></select></label><button onclick="addPiece()">Add piece (demo)</button></p></div>
+<div class="card"><h2>Enquiries &amp; visits (from the demo form)</h2><div id="enq"></div></div>
+<div class="card"><h2>Settings</h2><p>Showroom hours in this demo: Monday–Saturday 11:00 AM–9:00 PM, Sunday closed. WhatsApp (live version): https://wa.me/923471582082. Email: ambitionfurniture@outlook.com.</p></div>
+<p><a href="index.html">← Back to demo site</a></p></div>
+<script>
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function show(){var pieces=load('am_pieces',[{n:"Luxury Bed Set — Sample",c:"Beds"},{n:"Luxury Sofa Set — Sample",c:"Sofas"},{n:"Dining Table Set — Sample",c:"Dining"}]);document.getElementById('cat').innerHTML=pieces.map(function(p,i){return '<p>'+p.n+' ('+p.c+') <button onclick="delPiece('+i+')">Delete</button></p>'}).join('');var en=load('am_enquiries',[]);document.getElementById('enq').innerHTML=en.length?en.map(function(e){return '<p><b>'+e.name+'</b> · '+e.phone+' · '+e.cat+' · visit '+e.date+' · '+(e.msg||'')+'</p>'}).join(''):'<p>No demo enquiries yet.</p>'}
+function addPiece(){var n=document.getElementById('pn').value.trim();if(!n)return;var p=load('am_pieces',[]);p.push({n:n,c:document.getElementById('pc').value});localStorage.setItem('am_pieces',JSON.stringify(p));document.getElementById('pn').value='';show()}
+function delPiece(i){var p=load('am_pieces',[]);p.splice(i,1);localStorage.setItem('am_pieces',JSON.stringify(p));show()}
+show();
+</script></body></html>
